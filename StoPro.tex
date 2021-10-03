@@ -1,0 +1,480 @@
+\documentclass[11pt,a4paper,bibliography=totoc]{scrartcl}
+\usepackage[ngerman]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[ansinew]{inputenc}
+\usepackage{amssymb}
+\usepackage{mathrsfs} 
+\usepackage{hyperref}
+\usepackage{amsthm}
+\usepackage{amsmath}
+
+\renewcommand \thesection {\arabic{section}.}
+\renewcommand \thesubsection {\thesection \arabic{subsection}.}
+\renewcommand \thesubsubsection {\thesubsection \arabic{subsubsection}.}
+\newcommand{\E}{\mathbb E}
+\renewcommand{\(}{\left (}
+\renewcommand{\)}{\right )}
+\newcommand{\N}{\mathbb N}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\R}{\mathbb R}
+\newcommand{\Var}{\mathbb V\text{ar}}
+\newcommand{\F}{\mathscr F}
+\renewcommand{\L}{\mathscr L}
+\newcommand{\A}{\mathscr A}
+\newcommand{\1}{\mathbf 1}
+\newcommand{\B}{\mathscr B}
+
+\newcommand{\changefont}[3]{\fontfamily{#1}\fontseries{#2}\fontshape{#3}\selectfont}
+
+\begin{document}
+
+\changefont{ptm}{m}{n}
+\begin{center}
+\huge{Stochastische Prozesse}
+\end{center}
+\tableofcontents
+
+\newpage
+\section{Verfeinerung des Zentralen Grenzwertsatzes}
+\subsection{Definiton (Dreiecksschema)}Es sei $(m_n)_{n\in\N}$ eine Folge natürlicher Zahlen, $(\Omega_n, A_n, P_n)_{n\in\N,\ l=1,2,...m_n}$ eine Folge von W'räumen und $X=(X_{n,l})_{n\in\N,\  l=1,2,...m_n}$ eine Familie von reellen Zufallsvariablen mit $X_{n,l}:\Omega_n\to\R$. $X$ heißt Dreiecksschema wenn für alle $n\in\N$ die Zufallsvariablen $(X_{n,l})_{n\in\N,\  l=1,2,...m_n}$ unabhängig bzgl. $P_n$ sind.\\
+X heißt standardisiertes Dreiecksschema, wenn zusätzlich für alle $n\in\N$ und für alle $l=1,...,m_n$ gilt:
+
+\begin{equation*}
+\E_{p_n}[X_{n,l}]=0, \sum\limits_{l=1}^{m_n} \Var_{P_n}(X_{n,l})=1
+\end{equation*}
+Eine standardisiertes Dreiecksschema erfüllt die Lindeberg-Bedingung, wenn $\forall \epsilon >0$ gilt:
+
+\begin{equation*}
+\sum\limits_{l=1}^{m_n} \E_{p_n}[X^2_{n,l}\mathbf{1}_{\{ |X_{n,l}|>\epsilon \} }]\xrightarrow{n\to\infty} 0
+\end{equation*}
+
+
+\subsection{Satz von Lindeberg}
+Erfüllt ein standardisiertes Dreiecksschema die Lindeberg-Bedingung, so gilt:
+
+\begin{equation*}
+\mathscr L (\sum\limits_{l=1}^{m_n} X_{n,l})\xrightarrow[n\to\infty]{\omega} \mathscr N (0,1)
+\end{equation*}
+\pagebreak
+\subsection{Zentraler Grenwertsatz für Martingale}
+Für jedes $n\in\N$ sei gegeben:
+\begin{itemize}
+\item  ein W'raum $(\Omega_n, A_n, P_n)$
+\item eine Filtration $\mathscr F_n=(\mathscr F_{n,l})_{l\in\N_0}$ mit $\mathscr F_{n,0}=\{\emptyset, \Omega_n\}$
+\item ein Martingal $(X_{n,l})_{l\in\N_0}$ bzgl. $\mathscr F_n$ mit $X_{n,l}\in\mathscr L^2(\Omega_n, A_n, P_n)$ und $X_{n,0}=0$
+\end{itemize}
+Die Zuwächse der Martingale bezeichnen wir mit
+
+$Z_{n,l}=X_{n,l}-X_{n,l-1}$\\
+ihre bedingten Varianzen mit
+
+$\sigma_{n,l}^2=\Var_{p_n}(Z_{n,l}|\F_{n,l-1})$ und $\Sigma^2_n=\sum\limits_{l=1}^\infty \sigma^2_{n,l}$\\
+Es gelte:
+\begin{enumerate}
+	\item Für alle $n\in\N$ konvergiert $X_{n,l} \xrightarrow{l\to\infty} X_{n,\infty}\  P_n-f.s.$
+	\item Für alle $n\in\N$ sei $\Sigma^2_n\ P_n-f.s.$ endlich
+	\item $\Sigma^2_n\xrightarrow{n\to\infty} 1$ in W'keit
+	\item Lindeberg Bedinung: $\forall\epsilon >0: \sum\limits_{l=1}^\infty \E_p[Z_{n,l}^2 \mathbf{1}_{\{ |Z_{n,l}|>\epsilon\}}]\xrightarrow{n\to\infty}0$
+\end{enumerate}
+
+Dann gilt:
+\begin{equation*}
+\mathscr L_{p_n}(X_{n,\infty})\xrightarrow[n\to\infty]{\omega} \mathscr N (0,1)
+\end{equation*}
+
+\subsection{Lemma (Esseensche Ungleichung)}
+Es seien $\mu, \nu$ W'maße auf $(\R, B(\R ))$ mit Verteilungsfunktionen $F_\mu$ bzw. $F_\nu$ und Fouriertranformierten $\hat{\mu}$ bzw. $\hat{\nu}$. ($\hat{\mu}(k)=\int\limits_\R e^{ikx}d\mu (x)$).\\
+Das Maß $\nu$ besitze eine beschränkte Dichte $\frac{d\nu}{d\lambda}\leq M$, $M\in\R^+$. Dann gilt $\forall x\in\R$ und $\forall T>0: \ |F_\mu(x)-F_\nu(x)|\leq\frac{24M}{\pi  T}+\frac{1}{\pi}\int\limits_{-T}^T|\frac{\hat\mu(k)-\hat\nu (k)}{k}|dk$
+
+\pagebreak
+
+\subsection{Satz von Berry-Esseen 1. Version}
+Es seien $(X_n)_{n\in\N} $ i.i.d. Zufallsvariablen in $\L^3 (\Omega ,\mathscr A ,P)$ mit $\E [X_1]=0$, $\Var (X_1)=1$ und $\Delta =\E[|X_1|^3]$. Weiter sei $S_n=\sum\limits_{l=1}^nX_l$. Dann gilt für den Abstand zwischen der Verteilungsfunktion $F_\frac{S_n}{\sqrt{n}}$ von $\frac{S_n}{\sqrt{n}}$ und der Verteilungsfunktion $\Phi=F_{\mathscr N (0,1)}$ der Standardnormalverteilung:
+\begin{equation*}
+||F_\frac{S_n}{\sqrt{n}}-\Phi ||_\infty \leq \frac{c(\Delta,n)}{\sqrt n}\quad\text{für } n\geq 2
+\end{equation*}
+wobei $c(\Delta,n)\leq\frac{12}{\pi^\frac{3}{2}}\Delta+\frac{3}{2\sqrt\pi}\Delta (\frac{n}{n-1})^\frac{3}{2}+\frac{2}{\pi}\frac{1}{\sqrt{n}}\Delta(\frac{n}{n-1})^2$.\\
+$c(\Delta,n)$ fällt monoton in $n$ und es gilt:
+
+$c(\Delta,n)\leq 3\Delta\quad\text{für } n\geq 7$
+
+\subsection{Satz von Berry-Esseen 2. Version}
+Es seien $(X_n)_{n\in\N}$ i.i.d. Zufallsvariablen in $\L^3 (\Omega ,\mathscr A ,P)$ mit $m=\E [X_1]$, $\sigma^2=\Var (X_1)>0$ und $\Delta=\frac{\E [|X_1-m|^3]}{\sigma^3}$. Dann gilt für alle $t\in\R$ und $n\in\N$:
+
+\begin{equation*}
+|P(\sum_{l=1}^n X_l\leq m\cdot n+t\sigma\sqrt n )-\Phi (t)|\leq\frac{3\Delta}{\sqrt n}
+\end{equation*}
+
+\subsection{Defintion(Gitterverteilung)}
+Wir sagen $X$ hat eine Gitterverteilung mit Gitterwerte $\alpha >0$, wenn es ein $\beta\in\R$ gibt mit $P(X\in \alpha\Z +\beta)=1$ gilt, aber für alle $\widetilde{\alpha} >\alpha$ und $\widetilde{\beta}\in\R$ gilt: $P(X\in \widetilde{\alpha}\Z +\widetilde{\beta})<1$.
+
+
+\subsection{Lokaler zentraler Grenzwertsatz für Zufallsvariablen mit Gitterverteilung}
+Es seinen $(X_n)_{n\in\N}$ i.i.d. Zufallsvariablen mit einer Gitterverteilung mit Gitterwert $\alpha >0$. Es gelte $X_1\in\L^2 (\Omega ,A , P)$, $m=\E[X_1 ]$ und $\sigma^2 =\Var (X_1)$. Dann gilt für $S_n=\sum\limits_{l=1}^nX_l$:
+
+\begin{equation*}
+\sup\limits_{x\in\alpha\Z+n\beta} \sqrt n \left|P(S_n =x)-\frac{\alpha}{\sqrt{2\pi\sigma^2 n}}e^{-\frac{1}{2}\frac{(x-mn)^2}{n\sigma^2}}\right| \xrightarrow{n\to\infty} 0
+\end{equation*}
+
+
+
+\subsection*{Anmerkung}
+Es seinen $(X_n)_{n\in\N}$ i.i.d. Zufallsvariablen in  $\L^2$ mit einer Gitterverteilung mit Gitterwert $\alpha >0$ und $(Z_n)_{n\in\N}$ normalverteilt mit $\E[Z_n]=\E[S_n]$ und $\Var[Z_n]=\Var[S_n]$. Dann gilt:
+\begin{equation*}
+\sup\limits_{x\in\R} \left|P(S_n\in [x,x+\alpha[)-P(Z_n\in [x,x+\alpha[)\right|=o(\frac{1}{\sqrt n})\quad\text{für } n\to\infty
+\end{equation*}
+
+\subsubsection{Lemmas}
+Ist $X$ eine Zufallsvariable mit Werten in $\Z$ und $\varphi_x$ ihre Fouriertransformierte, so gilt für alle $m\in\Z$:
+\begin{equation*}
+P(X=m)=\frac{1}{2\pi}\int\limits_{-\pi}^\pi e^{-imk}\varphi_x(k)dk
+\end{equation*}
+Besitzt $X$ eine Gitterverteilung mit Gitterwert $\alpha >0$, so ist $\varphi_x$ periodisch mit der Periode $\frac{2\pi}{\alpha}$.
+
+Ist $X$ eine nicht $P-f.s.$ konstante Zufallsvariable, die keine Gitterverteilung besitzt, so gilt für alle $k\in\R\backslash \{0\}:\quad|\varphi_x(k)|<1$.
+
+Es sei $X\in\L^2 (\Omega, A, P)$ eine nicht $P-f.s.$ konstante Zufallsvariable, die keine Gitterverteilung besitzt. Dann gibt es für jedes $T>0$ ein $\gamma >0$, so dass für alle $k\in [-T,T]$ gilt: $|\varphi_x(k)|\leq e^{-\gamma k}$.
+
+\subsection{Lokaler Grenzwertsatz-Nichtgitterversion}
+Es seien $(X_n)_{n\in\N}$ i.i.d. Zufallsvariablen, die keine Gitterverteilung besitzen mit $\E[X_1]=0$, $\Var (X_1)=1$ und $S_n=\sum\limits_{l=1}^n X_l$. Dann gilt für alle $a,b\in\R$, $a<b$, alle $y\in\R$ und alle Folgen $y_n$ mit $\frac{y_n}{\sqrt n}\to y$:
+\begin{equation*}
+\sqrt n P(a\leq S_n-y_n\leq b)\xrightarrow{n\to\infty} \frac{b-a}{\sqrt{2\pi}}e^{-\frac{y^2}{2}}
+\end{equation*}
+
+\pagebreak
+
+\section{Markovprozesse}
+\subsection{Definition(Markovprozess)}
+Es sei $(\Omega , \A , P)$ ein Wahrscheinlichkeitsraum, $I\subseteq \R$, $\F=(\F_t)_{t\in I}$ eine Filtration auf $(\Omega , \A )$ und $X=(X_t)_{t\in I}$ eine an $\F$ adaptierte Familie von Zufallsvariablen mit Werten in einem Ereignisraum $(S, \Sigma )$. (statt Familie von Zufallsvariablen sagt man auch stochastischer Prozess)\\
+$X$ heißt Markovprozess (bzgl. $\F$) wenn für alle $t,s\in I$ mit $t\leq s$ und alle $A\in\Sigma$ gilt:
+\begin{equation*}
+P(X_s\in A|\F_t )=P(X_s\in A|X_t )
+\end{equation*}
+Der Ereignisraum $(S, \Sigma )$ heißt dann Zustandsraum des Markovprozesses $X$. Markovprozesse mit $I=N_0$ heißen Markovketten.
+\subsubsection{Lemma}
+Es sein $X=(X_t)_{t\in I}$ eine an die Filtration $\F=(\F_t)_{t\in I}$ adaptierte Familie von Zufallsvariablen mit Werten in $(S,\Sigma )$. Dann sind äquivalent:
+\begin{enumerate}
+	\item $X$ ist ein Markovprozess bzgl. $\F$
+	\item Für alle $n\in \N , t_1\leq ...\leq t_n$ in $I$ und alle meßbaren Funktionen\\ $f:(S^n,\Sigma^{\otimes^n})\to(\R\cup \{\pm\infty\},\B (\R\cup \{\pm\infty\} ))$ für die $\E[f(X_{t_1},...,X_{t_n})]$ existiert, gilt:
+	\begin{equation*}
+	\E[f(X_{t_1},...,X_{t_n})|\F_{t_1}]= \E[f(X_{t_1},...,X_{t_n})|X_{t_1}]\quad \textrm{P-f.s.}
+	\end{equation*}
+	\item Für alle $t\in I$ und $\sigma (X_s:s\in I, s\geq t)$- messbaren Zufallsvariablen $F$, für die $\E[F]$ existiert, gilt:
+	\begin{equation*}
+	\E[F|\F_t]=\E[F|X_t]\quad \textrm{P-f.s.}
+	\end{equation*}
+\end{enumerate}
+
+Ist $I=N_0$, so ist auch äquivalent:
+\begin{enumerate}
+	\item [4.] Für alle $t\in\N_0$ und alle $A\in\Sigma$ gilt:
+		\begin{equation*}
+		P(X_{t+1}\in A|F_t)=P(X_{t+1}\in A|X_t)
+	\end{equation*}
+\end{enumerate}
+
+\subsection{Defintion(Kern)}
+Es seien $(\Omega, \A )$ und $(\Omega ', \A ')$ Ereignisräume. Ein Kern von $(\Omega, \A )$ nach $(\Omega ', \A ')$ ist eine Abbildung $K:\Omega\times\A '\to [0,\infty ]$ mit:
+
+Für alle $A '\in \A '$ ist $K(\cdot , A'):\Omega\to [0,\infty ]$ bzgl. $\A$ messbar.
+
+Für alle $\omega\in\Omega$ ist $K(\omega,\cdot ):\A '\to[0,\infty ]$ ein Maß.\\
+Gilt zusätzlich: Für alle $\omega\in\Omega$ : $K(\omega,\Omega ')=1$, so heißt $K$ ein stochastischer Kern.
+
+\subsection{Definition(Erwartungskern)}
+Ist $(\Omega, \A, P)$ ein Wahrscheinlichkeitsraum, $\F\subseteq$ eine Unter-$\sigma$-Algebra und\\$X:(\Omega,\A )\to (\Omega ',\A ')$ eine Zufallsvariable, so heißt ein stochastischer Kern $K$ von $(\Omega,\A )$nach $(\Omega ',\A ')$ eine bedingte Verteilung oder Erwartungskern von $X$ gegeben $\F$ wenn für alle $A'\in\A '$ gilt:
+\begin{equation*}
+K(\cdot ,A' )=P(X\in A'|\F )\quad\textrm{P-f.s.}
+\end{equation*}
+Ist $\F$ von der Form $\F=\sigma (Y)$ mit einer Zufallsvariable $Y:(\Sigma, \A )\to(\Sigma'', \A '')$, so heißt die Abbildung $\widetilde{K}:\Omega '' \times \A '\to [0,1]$ eine faktorisierte bedingte Verteilung oder faktorisierter Erwartungskern, wenn $K$ ein stochastischer Kern von $(\Omega '',\A '')$ nach $(\Omega ', \A ')$ ist und\\
+$K:\Omega\times\A ' \to [0,1], K(\omega, \A ')=\widetilde{K} (Y(\omega ),A')$ eine bedingte Verteilung von $X$ gegeben $\sigma (Y)$ ist.
+
+Ist $f:(\Omega ',\A ')\to (\R_0^+,\B (\R_0^+))$ messbar und $K$ ein Erwartungskern von $X$ gegeben $\F$, so gilt:
+\begin{equation*}
+\E[f(X)|\F ](\omega )=\int_{\Omega '} f(\omega ')K(\omega , d\omega ') \quad\textrm{für P-f.s. alle } \omega\in\Omega
+\end{equation*}
+
+\subsection{Definition(Übergangskern)}
+Ist $X$ ein Markovprozess bzgl. einer Filtration $\F$ mit Werten in $(S,\Sigma )$ sowie $t,s\in I$, $t\leq s$, so heißt ein stochastischer Kern $K_{t,s}$ von $(S,\Sigma)$ nach $(S, \Sigma )$ Übergangskern oder Übergangsverteilung von Zeit $t$ nach $s$ wenn $\Omega\times\Sigma \ni (\omega, A) \mapsto K_{t,s} (X_t(\omega ),A)$ eine bedingte Verteilung von $X_s$ gegeben $F_t$ ist.
+
+Im Fall $I=\N_0$ oder $I=\R^+_0$ heißt $X$ homogen, wenn sie für alle $t\leq s$ in $I$ Übergangskerne von $t$ nach $s$ besitzt, die nur vom Zeitabstand $s-t$ abhängen.
+
+\subsection{Definition(Operation von Kernen)}
+Ist $K$ ein Kern von $(\Omega , \A )$ nach $(\Omega ',\A ')$ und $L$ ein Kern von $(\Omega ', \A ')$ nach $(\Omega '',\A '')$, so definieren wir $KL:\Omega\times\A '' \to [0,\infty ]$, $KL(\omega , A'')=\int\limits_\Omega L(\omega ', A'')K(\omega, d\omega ')$. Diese Operation ist assotiativ und $KL$ ist ein Kern von $(\Omega , \A )$ nach $(\Omega '',\A '')$.
+\subsubsection{Lemma}
+Ist $X$ ein Markovprozess bzgl. $\F$ mit Werten in $(S,\Sigma )$ und sind $K_{t,s}$, $K_{s,r}$ Übergangskerne zu den Zeiten $t\leq s$ bzw. $s\leq r$ in $I$ so ist $K_{t,s}K_{s,r}$ ein Übergangskern von Zeit $t$ zu Zeit $r$.
+\subsubsection{Anmerkung}
+$K_{t,t}(\omega ,A)=\1_A (\omega )$
+\subsubsection{Lemma}
+Es sei $X$ ein Markovprozess bzgl. $F$ mit Werten in $(S,\Sigma )$ und Übergangskern $(K_{t,s})_{t\leq s}$. Seien $t_o\leq...\leq t_n$ Zeiten in $I$ und $\mu_{t_0}=\L (X_{t_0})$. Dann gilt für alle $\Sigma^{\otimes^{n+1}}$-messbaren $f:S^{n+1}\to\R^+_0$:
+
+\begin{equation*}
+\E [f(X_{t_0},...,X_{t-n})]=\int\limits_S ...\int\limits_S f(x_0,...,x_n)K_{t_{n-1},t_n}(x_{n-1},dx_n )...K_{t_0,t_1}(x_0,dx_1)\mu_{t_0}(dx_0)
+\end{equation*}
+
+\subsection{Satz von Ionescu-Tulcea}
+Es seien $(S,\Sigma )$ ein messbarer Raum, $\mu$ ein Wahrscheinlichkeitsmaß auf $(S,\Sigma )$ und $(K_n)_{n\in\N_0}$ eine Folge von stochastischen Kernen von $(S,\Sigma )$ nach $(S,\Sigma )$. Dann gibt es genau ein Wahrscheinlichkeitsmaß $P$ auf $(\Omega , \A )=(S^{\N_0},\Sigma^{\otimes ^{\N_0}})$, so dass die Folge der Projektionen $X_n:S^{\N_0}\to S$, $X_n(\omega )=\omega_n$ eine Markovkette mit der Startverteilung $\L_P (X_0)=\mu$ und den Übergangsverteilungen $K_n$ von Zeit $n$ nach Zeit $n+1$ bilden.
+
+\subsection{Endliche Markovketten}
+Ist $S$ endlich, $\Sigma= \mathcal{P}(S)$, so kann man eine Markovkette auf Matrixoperationen beschränken. Sei $S=\{1,...N\}$. Ein stochastischer Kern von $S$ nach $S$ wird durch die Übergangsmatrix $\pi\in [0,1]^{N\times N}$ definiert:
+$K(i,A)=\sum\limits_{j=1}^N \pi_{i,j} \delta_j(A)$ also $K(i,\{ j\} )=\pi_{i,j}$, $A\subseteq\{ 1,...,N\}$, $i=1,...,N$
+\subsection{Stochastische Matrix}
+Eine Matrix $\pi\in [0,1]^{N\times N}$ heißt stochastische Matrix wenn ihre Zeilensummen gleich $1$ sind. Ebenso kodieren wir die Startverteilung $\mu =\sum\limits_{i=1}^N p_i\delta_i$ in einen Zeilenvektor $p=(p_1,...,p_N)\in [0,1]^N$ mit Summe $\sum\limits_{i=1}^N p_i=1$. Ist nun $X$ eine homogene Markovkette mit Startverteilung $p$ und Übergangsmatrix $\pi$, so beschreibt $p\pi^n$ die Zähldichteverteilung von $X_n$. 
+
+($p\mapsto p\pi$ entspricht $\L (X_n)\mapsto \L (X_{n+1})$)\\
+Sei $f:S\to\R$ eine Abbildung, aufgefasst als Spaltenvektor $f= \begin{pmatrix} f_1 \\ \vdots \\ f_N  \end{pmatrix}$. Dann gilt für alle $n\in\N$ und $i\in S$ mit $P(X_n=i)>0$: 
+
+$\E_p [f_{x_{n+1}}|X_n=i ]=\sum\limits_{j=1}^N P(X_{n+1}=j|X_n=i)f_j=(\pi f)_i$
+
+($f\mapsto \pi f$ entspricht $f_{X_{n+1}}\mapsto \E_P [f_{X_{n+1}}|X_n ]$)
+
+\subsection{Definition(Rechtsoperation)}
+Es sei $K$ ein Kern von $(S,\Sigma )$ nach $(S',\Sigma ')$. Ist $\mu$ ein Maß auf $(S,\Sigma )$ so wird durch\\ $\mu\otimes K:\Sigma\otimes\Sigma '\to\R^+_0$, $(\mu\otimes K) (A)=\int\limits_S\int\limits_{S'} \1_A(x,y)K(x,dy)\mu (dx)$ ein Maß auf $(S\times S',\Sigma\otimes\Sigma ')$ definiert.
+
+Ist $\mu$ ein Wahrscheinlichkeitsmaß und $K$ ein stochastischer Kern, so ist $\mu\otimes K$ ein Wahrscheinlichkeitsmaß mit erster Randverteilung $\mu$ und seine zweite Randverteilung $\mu K:\Sigma '\to\R_0^+$, $\mu K(B)=\int\limits_S K(x,B)\mu (dx)$ heißt Rechtsoperation von $K$ auf $\mu$.
+
+\subsection{Definition(Linksoperation)}
+Es sei $K$ ein Kern von $(S,\Sigma )$ nach $(S',\Sigma ')$. Ist $f:S'\to\R$ eine nichtnegative oder beschränkte messbare Funktion, so heißt $Kf: S\to\R\cup\{\infty\}$, $Kf(x)=\int\limits_{S'} f(y)K(x,dy)$ Linksoperation von $K$ auf $f$.
+
+\subsubsection{Lemma}
+Ist $X$ eine Markovkette bzgl. der Filtration $\F$ auf $(S,\Sigma )$ mit Übergangskern $K$, so gilt:\\ 
+$\L (X_{n+1})=\L (X_n)K$
+
+Ist $f:S\to\R$ messbar und $f(X_{n+1})$ integrierbar, so gilt:\\
+ $\E [f(X_{n+1})|\F_n ]=(Kf)(X_n)$ P-f.s.\\
+Durch Iteration erhält man: $\L (X_n )=\L(X_0)K^n$ und für $f(X_n)\in\L^1(\Omega ,\F_n , P)$:\\
+ $\E [f(X_n)|\F_m ]=(K^{n-m}f)(X_m)$ P-f.s. Insbesonders bildet $((K^{n-m}f)(X_m))_{m=0,...,n}$ ein Matringal bgzl. $(\F_m )_{m=0,..,n}$.
+
+\subsection{Definition(Stationäres Maß)}
+Es sei $K$ ein stochastischer Kern von $(S,\Sigma )$ nach $(S,\Sigma )$. Ein Maß $\mu$ heißt ($K$-) stationär wenn $\mu K=\mu$.
+\subsubsection{Lemma}
+Ist $X$ eine homogene Markovkette bzgl. $\F$ mit Zustandsraum $(S,\Sigma )$ auf $(\Omega ,\A ,P)$ mit Übergangskern $K$ und Startverteilung $\mu$, so gilt:\\
+Ist $\mu$ $K$-stationär, so hat $X_n$ für alle $n\in\N_0$ die gleiche Verteilung, d.h. $X_n$ ist stationär. 
+\subsection{Definition(Harmonische Funktion)}
+Eine messbare Funktion $f:s\to\R$ heißt ($K$-) harmonisch wenn $Kf$ definiert ist und $Kf=f$. $f$ heißt ($K$-) subharmonisch wenn $Kf\geq f$ und ($K$-) superharmonisch wenn $Kf\leq f$.
+\subsubsection{Lemma}
+Ist $X$ eine homogene Markovkette bzgl. $\F$ mit Zustandsraum $(S,\Sigma )$ auf $(\Omega ,\A ,P)$ mit Übergangskern $K$ und Startverteilung $\mu$, so gilt:\\
+Ist $f:S\to\R$ $K$-harmonisch und $f(X_n)$ integrierbar, so ist $(f(X_n))_{n\in\N_0}$ ein Martingal bzgl. $\F$. Bei sub- bzw. superharmonischen Funktionen erhält man Sub- bzw. Supermartingale.
+
+\section{Die starke Markoveigenschaft}
+\subsection{Definition(Stoppzeit)}
+$T$ heißt Stoppzeit bzgl. $\F$ wenn für alle $n\in\N_0$ gilt: $\{ T=n\}\in\F_n$. Die zu einer Stoppzeit beobachtbare $\sigma$-Algebra wird durch $\F_T=\{ A\in\A |\forall n\in\N :A\cap \{ T=n\}\in\F_n \}$ definiert.
+\subsection{Satz(Starke Markoveigenschaft)}
+Ist $T$ eine Stoppzeit mit $P(T<\infty )>0$, so ist $(X_{T+n})_{n\in\N_0}$ bedingt auf $\{ T<\infty \}$ wieder eine homogene Markovkette auf $(S,\Sigma )$ mit dem gleichen Übergangskern $K$ bzgl. der Filtration $(F_{T+n})_{n\in\N_0}$.
+\subsection{Notation(Startverteilung)}
+Gegeben sei eine Startverteilung $\mu$ auf $(S,\Sigma )$ und ein Übergangskern $K$ von $(S,\Sigma )$ nach $(S,\Sigma )$ bezeichnet man mit $P_\mu$ die Verteilung auf $(S^{\N_0},\Sigma^{\otimes^{\N_0}})$, die die kanonische Projektion\\ $X_n:S^{\N_0}\to S$, $\omega \mapsto\omega_n$ zu einer homogenen Markovkette $X$ mit Startverteilung $\mu$ und Übergangskern $K$ macht. Im Spezialfall $\mu =\delta_x$, $x\in S$, so schreibt man $P_x$ statt $P_{\delta_x}$.
+\subsection{Satz(Starke Markoveigenschaft)}
+Ist $T$ eine Stoppzeit so gilt für nicht negative oder beschränkte $\F_T\otimes\Sigma^{\otimes^{\N_0}}$-messbaren\\ $f:S^{\N_0}\times S^{\N_0}\to\R\cup\{\infty\}$:\\
+$\E_\mu [f(X,(X_{T+n})_{n\in\N_0})|\F_T ](\omega )=\E_{X_T(\omega )} [f(X(\omega ),X)]$ für $P_\mu$ fast alle $\omega\in S^{\N_0}$ auf dem Ereignis $\{ T<\infty\}$.
+
+\subsection{Satz(Eintrittszeit)}
+Ist $A\subseteq S$ messbar, $T_A=\inf\{ t\in\N_0 :X_t\in A\}$ Eintrittszeit in $A$ und $f:A\to\R$ messbar und beschränkt. $g:S\to\R$, $g(x)=\E_x [f(X_{T_A}),T_A<\infty ]$ ist harmonisch auf $S\backslash A$ mit den Randbedingungen $g|_A=f$.
+
+\subsection{Satz(Reflexionsprinzip für einfache Irrfahrt)}
+Sei $X$ die einfache Irrfahrt auf $\Z$. Dann gilt für alle $a\in\N_0$ und $t\in\N_0$:\\
+$P(T_a\leq t)=2P(X_t>a)+P(X_t=a)$
+
+\section{Rekurrenz und Transienz}
+\subsection{Notation}
+Für $x\in S$ ist $R_x=\inf\{ n\in\N :X_n=x\} >0$ die erste Eintrittszeit in $x$. $R_x$ ist eine Stoppzeit.
+
+\subsection{Satz(Eintrittszeit)}
+Folgende Aussagen sind äquivalent:
+\begin{enumerate}
+	\item $P_x (R_x<\infty )=1$
+	\item $P_x (X_n=x$ für unendlich viele $n)=1$
+	\item $P_x (X_n=x$ für unendlich viele $n)>0$
+	\item $\E_x [\sum\limits_{n\in\N_0} \1_{\{X_n=x\} } ]=\infty$
+	\item $\sum\limits_{n\in\N_0} P_x (X_n=x)=\infty$
+\end{enumerate}
+
+\subsection{Definition(Rückkehrzeiten)}
+$R_x^{(0)}=0$, $R_x^{(k+1)}=\inf\{ n>R_x^{(k)} :X_n=x\}$
+
+\subsection{Definition(Rekurrenter Punkt)}
+Ein Punkt $x\in S$ (oder die zugehörige Markovkette mit Start in $x$) heißt rekurrent, falls\\ $P_x(R_x<\infty )=1$. Sonst heißt $x$ transient.
+
+\subsection{Definition(Positiv rekurrent)}
+Eine homogene Markovkette $X$ mit Start in $x\in S$ heißt positiv rekurrent, falls gilt:\\ $\E _x [R_x]<\infty$. Sie heißt nullrekurrent, falls $R_x<\infty$ $P_x$-f.s. und $\E_x [R_x ]=\infty$
+
+\subsubsection{Lemma}
+Eine rekurrente homogene Markovkette $X$ mit Start in $x\in S$ ist nullrekurrent, wenn:\\
+$P(X_n=x)\xrightarrow{n\to\infty} 0$.
+
+\subsection{Definition(Erreichbarkeit)}
+Ein Punkt $y\in S$ heißt erreichbar von $x\in S$ wenn $P_x (R_y <\infty ) >0$.
+
+\subsubsection{Lemma}
+Für $x,y\in S$ , $x$ rekurrent sind äquivalent:
+\begin{enumerate}
+	\item $P_x (R_y<\infty )>0$
+	\item $P_x (R_y\leq R_x)>0$
+	\item $P_x (R_y<\infty)=1$
+\end{enumerate}
+\subsubsection{Lemma}
+Auf der Menge $R\subseteq S$ der rekurrenten Zustände ist die Erreichbarkeitsrelation eine Äquivalenzrelation.\\
+\vspace*{5mm}
+
+\subsection{Satz}
+
+Ist $S$ abzählbar, $\Sigma=\mathscr P (S)$, $X$ eine homogene Markovkette auf $S$ und $x\in S$ rekurrent, so ist das Maß $\mu$ auf $S$ definiert durch \\
+\begin{tabular}{ll}
+$\mu (A)$&$=\E_x [$Anzahl der Besuche in $A$ vor Rückkehr zu $x]$\\
+&$=\E_x[\sum_{n\in\N_0}\1_{\{ X_n\in A,R_X>n\} }]$\\
+&$=\sum_{n\in\N_0}P_x(X_n\in A,R_x>n)$
+\end{tabular}
+
+stationär und besitzt eine endliche Zähldichte.
+
+\subsection{Definition(Irreduzible Markovkette)}
+Eine homogene Markovkette $X$ mit abzählbaren Zustandsraum $S$ heißt irreduzibel, wenn jeder Zustand $y\in S$ von jedem Zustand $x\in S$ aus erreichbar ist: $\forall x,y\in S$: $P_x (R_y <\infty ) >0$.
+
+\subsection{Satz}
+Sei $X$ eine irreduzible Markovkette auf $S$ und $x\in S$. Dann sind äquivalent:
+\begin{enumerate}
+	\item $x$ ist positiv rekurrent
+	\item Es gibt ein stationäres Wahrscheinlichkeitsmaß $\nu$
+	\item Das Maß $\mu:\mathscr P (S)\to [0,\infty ]$, $\mu (A)=\sum\limits_{n\in\N_0} P_x(X_n\in A,R_x >n)$ ist endlich.
+\end{enumerate}
+$\nu$ ist eindeutig bestimmt durch $\nu=\sum\limits_{x\in S} \frac{1}{\E_x [R_x]}$
+
+
+\section{Konvergenz von Markovketten}
+\subsection{Definition(Aperiodisch)}
+Sei $X$ eine homogene, irreduzible Markovkette auf einem abzählbaren Raum $S$ mit Übergangsmatrix $\pi$. Für $x\in S$ sei $M_x=\{ n\in\N_0:P_x (X_n=x )>0\}=\{n\in\N_0:\pi^n (x,x)>0\}$ die Menge der möglichen Rückkehrzeiten nach $x$. Die stochastische Matrix $\pi$ (bzw. der Prozess $X$) heißt aperiodisch, wenn gilt $ggT M_x=1$ $\forall x\in S$.
+
+\subsubsection{Lemma}
+Es sei $M\subseteq \N_0$ eine unter $+$ abgeschlossene Menge mit $0\in M$.
+Dann sind äquivalent:
+\begin{enumerate}
+	\item $ggT M=1$
+	\item $M-M=\{ m-n:m,n\in M\} =\Z$
+	\item $\N_0 \backslash M$ ist endlich
+	\item Es gilt $n\in M$ mit $n+1\in M$
+\end{enumerate}
+
+\subsubsection{Bemerkung}
+Für $x,y\in S$ gilt: $ggT M_x=1\Leftrightarrow ggT M_y=1$.
+
+\subsection{Satz}
+Sei $X$ eine positiv rekurrente, irreduzible, aperiodische Markovkette auf dem abzählbaren Zustandsraum $S$ mit Übergangsmatrix $\pi$ und stationärer Verteilung $\mu$. Dann gilt:
+\begin{itemize}
+	\item Für alle $x,y\in S$: $\pi^n (x,y)\xrightarrow{n\to\infty} \mu (\{ y\} )$
+	\item Für alle Startverteilungen $\nu$ auf $S$ gilt: $\sup\limits_{A\subseteq S} |P_\nu (X_n\in A )-\mu (A) |\xrightarrow{n\to\infty} 0$
+	\item Für alle Startverteilungen $\nu$ auf $S$ gilt:\\ $\sup\limits_{f:S^{\N_0}\to [0,1]} |\E_\nu [f((X_{n+k})_{k\in\N_0})]-\E_\mu [f(X)]|\xrightarrow{n\to\infty} 0$
+	\item Für alle Startverteilungen $\nu$, $\nu '$ auf $S$ gilt:\\ $\sup\limits_{f:S^{\N_0}\to [0,1]} |\E_\nu [f((X_{n+k})_{k\in\N_0})]-\E_{\nu '} [f((X_{n+k})_{k\in\N_0})]|\xrightarrow{n\to\infty} 0$
+\end{itemize}
+
+\subsubsection{Lemma}
+Ist $\pi$ irreduzibel und aperiodisch, so ist auch die Produktübergangsmatrix $\hat \pi$ irreduzibel. Insbesonders ist die Diagonale $\{ (x,x) \in S\times S\}$ von jedem Punkt $(x,y)\in S\times S$ erreichbar.
+\subsubsection{Lemma}
+Die Markovkette mit Übergangsmatrix $\hat \pi$ auf $S\times S$ ist positiv rekurrent.
+
+\section{Poissonprozess}
+\subsection{Definition(Poissonverteilung)}
+Die Poissonverteilung zum Parameter $\alpha \geq 0$ ist folgende Verteilung auf $(\N_0 ,\mathscr P (\N_0 ))$:\\
+ $Poisson (\alpha )=\sum\limits_{n\in\N_0 }e^{-\alpha} \frac{\alpha^n}{n!}\delta_n$ mit $Poisson(0)=\delta_0$.\\
+Sie besitzt die Faltungseigenschaft: $Poisson (\alpha ) *Poisson(\beta )=Poisson (\alpha +\beta )$ und die Fouriertransformierte: $Poisson (\alpha ) ^\wedge (k)=\exp (\alpha (e^{ik}-1))$
+
+\subsection{Definition(Poissonprozess)}
+Ein (homogener) Poissonprozess mit Intensität $\lambda >0$ ist ein stochastischer Prozess $(N_t)_{t\geq 0}$ in kontinuierlicher Zeit über einem Wahrscheinlichkeitsraum $(\Omega ,\A ,P)$ mit Werten in\\ $(\N_0 ,P(\N_0 ))$ mit:
+\begin{enumerate}
+	\item $N_0=0$
+	\item Alle Pfade $(N_t (\omega ))_{t\geq 0}$, $\omega\in \Omega$ sind monoton steigend und rechtsseitig stetig.
+	\item Für alle $s>t\geq 0$ ist der Zuwachs $N_s-N_t$ poissonverteilt mit dem Parameter $\lambda (s-t)$
+	\item Für alle $k\in\N$ und alle $0\leq t_0<...<t_k$ gilt: Die Zuwächse $(N_{t_i}-N_{t_{i-1}})_{i=1,...,k}$ sind stochastisch unabhängig.
+\end{enumerate}
+
+\subsubsection{Bemerkung}
+Die Forderung 3. kann durch folgende Forderung ersetzt werden:\\
+Für alle $s>t>0$ hängt die Verteilung $N_s-N_t$ nur von $s-t$ ab und $P(N_t=1)=\lambda t+o(t)$ und $P(N_t\geq 2)=o(t)$ für $t\to\infty$.
+
+
+
+\subsection{Satz(Gedächtnislosigkeit der Exponentialverteilung)}
+Ist $T$ exponentialverteilt mit dem Parameter $\lambda >0$, so ist für alle $a\geq 0$ $T-a$ bedingt auf $\{ T>a\}$ ebenfalls exponentialverteilt zum Parameter $\lambda$.
+
+\subsection{Satz(Gedächtnislosigkeit der Exponentialverteilung - bedingte Version)}
+Sind $T\sim Exp(\lambda )$, $X$ eine von $T$ unabhängige Zufallsvariable und $S$ eine $\sigma (X)$-messbare Zufallsvariable, so gilt: Bedingt auf das Ereignis $\{ T>a\}$ ist $T-S$ ebenfalls $Exp (\lambda )$-verteilt und unabhängig von $X$.\\
+Für alle messbaren $A\subseteq \R^+$ und $B\in\Omega '$ gilt:\\
+$P(T-S\in A,X\in B|T-S>0)=P(T\in A )P(X\in B|T-S>0)$
+
+\subsection{Definition(Poisson-Punktprozesse)}
+Sei $(\Omega ,\A ,P)$ ein Wahrscheinlichkeitsraum, $(X, \mathscr X)$ ein messbarer Raum und $\lambda$ ein $\sigma$-endliches Maß auf $(X, \mathscr X)$. Ein Poisson-Punktprozess über $(X, \mathscr X)$ mit dem Intensitätsmaß $\lambda$ ist eine Familie von Zufallsvariablen $(N_A)_{A\in\mathscr X}$ mit Werten in $\N_0\cup\{\infty\}$ mit:
+\begin{enumerate}
+	\item $N_.:\Omega\times\mathscr X\to\N_0\cup\{\infty\}$, $(\omega , A)\mapsto N_A (\omega )$ ist ein Kern
+	\item Für alle $A\in\mathscr X$ ist $N_A$ poissonverteilt mit dem Parameter $\lambda (A)$. \\(Dabei ist $Poisson (\infty )=\delta_\infty$)
+	\item Sind $A_1,...,A_n\in\mathscr X$ paarweise disjunkt und $n\in\N$ so sind $N_{A_1},...,N_{A_n}$ unabhängig
+\end{enumerate}
+
+\subsubsection{Satz(Abbilden von Poisson-Punktprozesse)}
+Ist $N$ ein Poisson-Punktprozesse über $(X,\mathscr X ,\lambda )$ auf $(\Omega ,\A ,P)$ und $(X',\mathscr X' ,\lambda ' )$ ein weiterer $\sigma$-endlicher Maßraum, $F:(X,\mathscr X )\to (X', \mathscr X')$ eine meßbare Abbildung mit Bildmaß $F(\lambda )=\lambda '$, so ist $\hat N :\Omega\times\mathscr X'\to N_0\cup\{\infty\}$, $\hat N_{A'}(\omega )=N_{F^{-1} (A')}(\omega )$ ebenfalls ein Poisson-Punktprozess über $(X',\mathscr X' ,\lambda ' )$.
+
+\subsubsection{Satz(Erzeugendes Funktional eines Poisson-Punktprozess)}
+Es sei $N$ ein Poisson-Punktprozess über $(X,\mathscr X ,\lambda )$ auf einem Wahrscheinlichkeitsraum $(\Omega ,\A ,P)$. Ist $f:X\to\R$ messbar und $\int\limits_X (e^f-1)d\lambda <\infty$, so ist $\L_N (f)=\E [\exp (\int\limits_X f(x)N(dx))]$ wohldefiniert und es gilt $\L_N (f)=\exp (\int\limits_X (e^f-1)d\lambda )$.
+
+Gilt $\int\limits_X (|f|\wedge 1)d\lambda <\infty$, dann ist $\E [\exp (i\int\limits_X f(x) N(dx))]=exp(\int\limits_X (e^{if}-1)d\lambda )$ 
+
+\subsection{Definition(Zusammengesetzte Poissonverteilungen)}
+Es sei $\mu$ ein Maß auf $\R$ mit $\int\limits_\R (|x|\wedge 1)\mu (dx) <\infty$ und $N$ ein Poisson-Punktprozess über $(X,\mathscr X ,\lambda )$ auf einem Wahrscheinlichkeitsraum $(\Omega ,\A ,P)$. Die zusammengesetzte Poissonverteilungen mit dem Intensitätsmaß $\mu$ ist die Verteilung von $\int\limits_\R x N(dx)$. Man bezeichnet sie mit $CPoi (\mu )$.
+
+\subsubsection{Bemerkung}
+Für die Fouriertransformierte gilt: 
+
+$CPoi (\mu ) ^\wedge (k)=\E [\exp (ik\int\limits_\R x N(dx))]=\exp (\int\limits_\R (e^{ikx}-1)\mu (dx))$
+Ist $\mu$ ein endliches Maß, so gilt:
+
+$CPoi (\mu )=e^{-\mu (\R )}e^{*\mu }$ wobei $e^{*\mu }=\sum\limits_{n=0}^\infty \frac{\mu^{*n}}{n!}$
+
+\subsubsection{Lemma (Faltungseigenschaft der zusammengesetzten Poissonverteilung)}
+Sind $\mu$, $\nu$ Maße auf $(\R, B(\R ))$ mit $\int\limits_\R (|x|\wedge 1)\mu (dx) <\infty$ und $\int\limits_\R (|x|\wedge 1)\nu (dx) <\infty$, so gilt $CPoi(\mu )*CPoi (\nu )=CPoi(\mu +\nu )$. 
+
+Vor allem gilt: $CPoi (\mu )=CPoi (\frac{1}{n} \mu )^{*n}$ für alle $n\in\N$.
+
+\subsection{Definition(Unbegrenzte Teilbarkeit)}
+Ein Wahrscheinlichkeitsmaß $P$ auf $\R$ heißt unbegrenzt teilbar, wenn es für jedes $n\in\N$ ein Wahrscheinlichkeitsmaß $Q_n$ auf $\R$ gibt mit $Q_n^{*n}=P$.
+\subsubsection{Lemma}
+Sind $P$, $Q$ Wahrscheinlichkeitsmaße auf $\R_0^+$ mit $P^{*n}=Q^{*n}$, so ist $P=Q$.
+
+
+\subsection{Definition(Levy-Prozess)}
+Ein stochastischer Prozess $(X_t)_{t\geq 0}$ mit Werten in $\R$ heißt Levy-Prozess wenn gilt:
+\begin{enumerate}
+	\item $X_0=0$
+	\item Die Verteilung der Zuwächse $X_s-X_t$, $s>t\geq 0$ hängt nur von $s-t$ ab.
+	\item Für alle $n\in\N$ und $0\leq t_0 < ...<t_n$ sind die Zuwächse $(X_{t_i}-X_{t_{i-1}})_{i=1,...,n}$ unabhängig.
+	\item Alle Pfade von $X$ sind rechtsstetig und besitzen linksseitige Limiten.
+\end{enumerate}
+Gilt zusätzlich:
+
+\begin{enumerate}
+	\item [5.] $\L (X_t)=CPoi(t\mu )$ für alle $t\geq 0$ mit einem Maß $\mu$ auf $\R$ mit $\int\limits_\R (|x|\wedge 1)\mu (dx) <\infty$, so heißt $X$ reiner Levy-Sprungprozess mit Levy Maß $\mu$.
+\end{enumerate}
+
+\subsubsection{Satz(Darstellung von Levy-Prozessen)}
+Jeder Levy-Prozess $X$ mit monoton steigenden Pfaden lässt sich auch als Summe einer deterministischen linearen Prozesses $(at)_{t\geq 0}$ mit $a\geq 0$ und eines reinen Levy-Sprungprozess $Y_t$ darstellen:
+
+$X_t=at+Y_t$\\
+Vor allem gilt die Levy-Kinchin-Formel für monoton steigende Levy-Prozesse:
+
+$\E [e^{-sXt}]=\exp (-sat+t\int\limits_0^\infty (e^{-sx}-1)\mu (dx))$ mit $s\in \mathbb C$, $Re(s)\geq 0$
+
+\subsubsection{Satz}
+Ist $P$ ein unbegrenzt teilbares Wahrscheinlichkeitsmaß auf $\R_0^+$, so kann $P$ eindeutig in der Form $P=\delta_a*CPoi (\mu)$ mit $a\geq 0$ und einem Maß $\mu$ auf $\R^+$ mit $\int\limits_0^\infty (x\wedge 1)\mu (dx) <\infty$ geschrieben werden.
+
+
+\section{Brownsche Bewegung}
+\subsection{Definition(Brownsche Bewegung)}
+Ein Levy-Prozess $B$ mit stetigen Pfaden, so dass für alle $t>0$ $B_t$ $\mathscr N (0,t)$-verteilt ist, wird Brownsche Bewegung genannt.
+
+
+Andere Formulierung der Bedingung:\\
+Für $0=t_0<t_1<...t_n$, $n\in\N$ sollen die Zuwächse $(B_t-B_{t-1})_{i=1,..,n}$ unabhängig und $\mathscr N (0,t_i-t_{t-1})$ verteilt sein. Das bedeutet $(B_{t_i}-B_{t_{t-1}})_{i=1,...n}$ sind gemeinsam n-dimensional normalverteilt mit Erwartung $0$ und Kovarianzmatrix mit Diagonaleinträgen $(t_i-t_{i-1})_{i=1,...,n}$.
+
+\subsubsection{Lemma}
+Ein Prozess $B$ mit stetigen Pfaden und $B_0=0$ ist genau dann eine Brownsche Bewegung, wenn die endlich dimensionale Randverteilung $\L (B_{t_i}:i=1,...,n)$ mit $n\in\N$, $0=t_0<t_1<...<t_n$ multidimensional normalverteilt ist mit Erwartung $0$ und Kovarianzen $Cov(B_{t_i},B_{t_j})=t_i\wedge t_j$
+
+
+\subsection{Satz(Skalierungseigenschaft der Brownschen Bewegung)}
+Ist $B$ eine Brownsche Bewegung und ist $a>0$, so ist auch $\hat B=(\hat B_t=aB_{\frac{t}{a^2}})_{t>0}$ eine Brownsche Bewegung.
+\end{document}
